@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="textblue">#264653</color>
     <color name="backgroundColor">#f6d5f7</color>
+    <color name="agebfColor">#f1515e</color>
+    <color name="buttonbgColor">#f492f0</color>
 </resources>
