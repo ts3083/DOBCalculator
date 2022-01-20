@@ -11,4 +11,5 @@
     <color name="backgroundColor">#f6d5f7</color>
     <color name="agebfColor">#f1515e</color>
     <color name="buttonbgColor">#f492f0</color>
+    <color name="SelectedDateColor">#8364e8</color>
 </resources>
