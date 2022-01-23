@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +38,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, // month는 0부터 세기 때문에 +1해주어야 함
                     "Year seleccted $selectedDate", Toast.LENGTH_LONG).show()
                 tvSelectedDate?.text = selectedDate
+
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+                val theDate = sdf.parse(selectedDate) // 위쪽 날짜 형식을 사용하고 싶은 형태로 바꿈
+
             },
             year,
             month,
