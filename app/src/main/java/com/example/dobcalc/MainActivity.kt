@@ -28,14 +28,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun clickDatePicker() {
+    private fun clickDatePicker() { // 다른 클래스에서 사용할 수 없도록 설정
         val myCalendar = Calendar.getInstance() // myCalendar는 Calender클래스의 객체
         val year = myCalendar.get(Calendar.YEAR)
         val month = myCalendar.get(Calendar.MONTH)
         val day = myCalendar.get(Calendar.DAY_OF_MONTH)
         val dpd = DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener { view, selectedyear, selectedmonth, selectedday ->
+            DatePickerDialog.OnDateSetListener { _, selectedyear, selectedmonth, selectedday ->
                 val selectedDate = "$selectedyear/${selectedmonth + 1}/$selectedday"
                 Toast.makeText(this, // month는 0부터 세기 때문에 +1해주어야 함
                     "Date seleccted $selectedDate", Toast.LENGTH_LONG).show()
@@ -43,14 +43,17 @@ class MainActivity : AppCompatActivity() {
 
                 val sdf = SimpleDateFormat("yyyy/MM/dd", Locale.KOREA)
                 val theDate = sdf.parse(selectedDate) // 위쪽 날짜 형식을 사용하고 싶은 형태로 바꿈
+                theDate?.let {
+                    val selectedDateInMinutes = theDate.time / 60000 // 1970/01/01부터 선택한 날짜까지 시간을 분 단위로
 
-                val selectedDateInMinutes = theDate.time / 60000 // 1970/01/01부터 선택한 날짜까지 시간을 분 단위로
+                    val currentDate = sdf.parse(sdf.format(System.currentTimeMillis())) // 1970/01/01부터 현재까지 시간을 ms로
+                    currentDate?.let {
+                        val currentDateInMinutes = currentDate.time / 60000
 
-                val currentDate = sdf.parse(sdf.format(System.currentTimeMillis())) // 1970/01/01부터 현재까지 시간을 ms로
-                val currentDateInMinutes = currentDate.time / 60000
-
-                val differenceInMinutes = currentDateInMinutes - selectedDateInMinutes // 두 날짜 사이의 차이를 분으로 나타냄
-                tvAgeInMinutes?.text = differenceInMinutes.toString()
+                        val differenceInMinutes = currentDateInMinutes - selectedDateInMinutes // 두 날짜 사이의 차이를 분으로 나타냄
+                        tvAgeInMinutes?.text = differenceInMinutes.toString()
+                    }
+                }
             },
             year,
             month,
